@@ -1,0 +1,60 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+  <app-navbar></app-navbar>
+  <!-- 🔹 Search & Filter Bar -->
+  <div class="bg-white p-4 rounded-lg shadow-md mb-8 flex flex-col md:flex-row gap-4 justify-center items-center">
+    <!-- Search -->
+    <input [(ngModel)]="searchTerm" (input)="applyFilters()"
+           placeholder="🔍 Search jobs (title, skills, description)"
+           class="w-full md:w-1/3 p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+
+    <!-- Location -->
+    <input [(ngModel)]="locationFilter" (input)="applyFilters()"
+           placeholder="📍 Location"
+           class="w-full md:w-1/4 p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+
+    <!-- Reset -->
+    <button (click)="resetFilters()"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+      Reset
+    </button>
+  </div>
+
+  <!-- 🔹 Loading Spinner -->
+  <div *ngIf="loading" class="flex justify-center items-center min-h-[200px]">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-600 border-solid"></div>
+  </div>
+
+  <!-- 🔹 No Results -->
+  <div *ngIf="!loading && filteredJobs.length === 0" class="text-gray-600 text-center">
+    🚀 No jobs match your filters.
+  </div>
+
+  <!-- 🔹 Jobs Grid -->
+  <div *ngIf="!loading && filteredJobs.length > 0"
+       class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let job of filteredJobs"
+         class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between">
+
+      <h3 class="text-xl font-semibold text-gray-800 mb-2 truncate">{{ job.title }}</h3>
+      <p class="text-sm text-gray-500 font-medium mb-2">🏢 {{ job.company }}</p>
+      <p class="text-gray-600 text-sm line-clamp-3 mb-4">{{ job.description }}</p>
+
+      <div class="mt-auto">
+        <p class="text-gray-500 text-sm mb-1">📍 {{ job.location }}</p>
+        <p class="text-gray-500 text-sm mb-3">💰 {{ job.salary || 'Not Disclosed' }}</p>
+
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span *ngFor="let skill of job.skills"
+                class="bg-blue-100 text-blue-700 px-3 py-1 text-xs rounded-full">
+            {{ skill }}
+          </span>
+        </div>
+
+        <button (click)="goToDetail(job)"
+                class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

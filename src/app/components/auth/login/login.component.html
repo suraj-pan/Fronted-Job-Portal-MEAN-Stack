@@ -1,0 +1,24 @@
+<div class="flex justify-center items-center min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-100 ">
+  <div class="bg-white shadow-lg rounded-xl p-8 w-96">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">Login</h2>
+
+    <form (ngSubmit)="login()" class="space-y-4">
+      <input [(ngModel)]="email" name="email" type="email" placeholder="Email"
+             class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+
+      <input [(ngModel)]="password" name="password" type="password" placeholder="Password"
+             class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+
+      <button type="submit"
+              class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-60"
+              [disabled]="isLoading">
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+
+    <p class="text-center mt-4 text-gray-600">
+      Don’t have an account?
+      <a routerLink="/register" class="text-blue-600 font-semibold hover:underline">Register</a>
+    </p>
+  </div>
+</div>

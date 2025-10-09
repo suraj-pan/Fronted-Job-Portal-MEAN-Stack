@@ -1,0 +1,33 @@
+<div class="bg-white shadow-md">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Left: Logo + Brand -->
+    <div class="flex items-center gap-3"  (click)="goHome()">
+      <img src="../../../assets/naukri_logo.svg" alt="logo" class="h-25 w-25">
+<!--      <h1 class="text-xl font-bold text-blue-700">Naukri</h1>-->
+    </div>
+
+    <!-- Middle: Dynamic Nav Links -->
+    <nav class="hidden md:flex gap-6 text-gray-700 font-medium">
+      <!-- Jobseeker Links -->
+      <ng-container *ngIf="userRole === 'jobseeker'">
+        <a routerLink="/jobs" routerLinkActive="text-blue-600" class="hover:text-blue-600 transition">Jobs</a>
+        <a routerLink="/jobseeker-dashboard" routerLinkActive="text-blue-600" class="hover:text-blue-600 transition">My Applications</a>
+        <a routerLink="/profile" routerLinkActive="text-blue-600" class="hover:text-blue-600 transition">Profile</a>
+      </ng-container>
+
+      <!-- Recruiter Links -->
+      <ng-container *ngIf="userRole === 'recruiter'">
+        <a routerLink="/recruiter-dashboard" routerLinkActive="text-blue-600" class="hover:text-blue-600 transition">My Dashboard</a>
+        <a routerLink="/post-job" routerLinkActive="text-blue-600" class="hover:text-blue-600 transition">Post Job</a>
+        <a routerLink="/profile" routerLinkActive="text-blue-600" class="hover:text-blue-600 transition">Profile</a>
+      </ng-container>
+    </nav>
+
+    <!-- Right: Logout -->
+    <button (click)="onLogout()"
+            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+      Logout
+    </button>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="flex justify-center items-center min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-100 ">
+  <div class="bg-white shadow-lg rounded-xl p-8 w-[400px]">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">Create Your Account</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="space-y-4">
+
+      <!-- Name -->
+      <div>
+        <input formControlName="name" type="text" placeholder="Full Name"
+               class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+        <div *ngIf="f['name'].touched && f['name'].invalid" class="text-red-500 text-sm mt-1">
+          Name must be at least 3 characters
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <input formControlName="email" type="email" placeholder="Email"
+               class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="text-red-500 text-sm mt-1">
+          Please enter a valid email
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <input formControlName="password" type="password" placeholder="Password"
+               class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+        <div *ngIf="f['password'].touched && f['password'].invalid"
+             class="text-red-500 text-sm mt-1">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div>
+        <select formControlName="role"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+          <option value="jobseeker">Jobseeker</option>
+          <option value="recruiter">Recruiter</option>
+        </select>
+      </div>
+
+      <!-- Button -->
+      <button type="submit"
+              class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+              [disabled]="isSubmitting || registerForm.invalid">
+        {{ isSubmitting ? 'Creating Account...' : 'Register' }}
+      </button>
+    </form>
+
+    <p class="text-center mt-4 text-gray-600">
+      Already have an account?
+      <a routerLink="/login" class="text-blue-600 font-semibold hover:underline">Login</a>
+    </p>
+  </div>
+</div>

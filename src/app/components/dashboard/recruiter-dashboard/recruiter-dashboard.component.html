@@ -1,0 +1,97 @@
+<app-navbar></app-navbar>
+
+<!-- 🧑‍💼 Recruiter Dashboard Header -->
+<section class="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white py-6 px-6 text-center shadow-md">
+  <h1 class="text-3xl md:text-4xl font-bold mb-2">Recruiter Dashboard</h1>
+  <p class="text-blue-100 text-lg">
+    Manage your job postings and review applications efficiently.
+  </p>
+</section>
+
+
+<ng-template ngIf="loading" >
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="flex justify-center items-center min-h-[200px]">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-600 border-solid"></div>
+  </div>
+</ng-template>
+
+
+<!-- 📊 Job Listings Section -->
+<section *ngIf="!loading"  class="max-w-6xl    mx-auto mt-4 px-6">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-blue-700">My Job Posts</h2>
+
+    <button
+      routerLink="/post-job"
+      class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-all font-medium shadow-sm">
+      + Post New Job
+    </button>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="jobs.length === 0"
+       class="bg-blue-50 border border-blue-200 text-blue-700 p-6 rounded-xl text-center shadow-sm">
+    <img src="assets/empty-jobs.svg" alt="No jobs" class="mx-auto w-40 mb-4 opacity-80" />
+    <p class="font-medium text-lg">You haven’t posted any jobs yet.</p>
+    <button routerLink="/recruiter/post-job"
+            class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
+      Post Your First Job
+    </button>
+  </div>
+
+  <!-- Job Table -->
+  <div *ngIf="jobs.length > 0"
+       class="overflow-x-auto bg-white shadow-md rounded-xl border border-gray-100">
+    <table class="min-w-full text-sm text-gray-700">
+      <thead class="bg-blue-600 text-white text-sm uppercase tracking-wide">
+      <tr>
+        <th class="px-6 py-4 text-left">Job Title</th>
+        <th class="px-6 py-4 text-left">Location</th>
+        <th class="px-6 py-4 text-left">Applicants</th>
+<!--        <th class="px-6 py-4 text-right">Actions</th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let job of jobs"
+          class="border-b hover:bg-blue-50 transition-all duration-200">
+
+        <td class="px-6 py-4 font-semibold text-gray-900">
+          {{ job.title }}
+        </td>
+
+        <td class="px-6 py-4 text-gray-700">
+          {{ job.location }}
+        </td>
+
+        <td class="px-6 py-4">
+            <span class="text-gray-900 font-medium">
+              {{ job.applicantsCount }}
+            </span>
+          <button
+            (click)="getShowApplications(job)"
+            *ngIf="job.applicantsCount > 0"
+            class="ml-3 text-blue-600 hover:underline font-medium text-sm">
+            View
+          </button>
+        </td>
+
+<!--        <td class="px-6 py-4 text-right">-->
+<!--          <div class="flex justify-end gap-3">-->
+<!--            <button-->
+<!--              routerLink="/recruiter/edit-job/{{ job._id }}"-->
+<!--              class="text-sm text-blue-600 font-medium hover:underline">-->
+<!--              Edit-->
+<!--            </button>-->
+<!--            <button-->
+<!--              (click)="deleteJob(job._id)"-->
+<!--              class="text-sm text-red-600 font-medium hover:underline">-->
+<!--              Delete-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
