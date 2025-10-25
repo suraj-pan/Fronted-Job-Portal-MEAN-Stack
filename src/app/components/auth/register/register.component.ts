@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       next: (res) => {
         console.log('Registered:', res);
         this.authService.saveToken(res);
-        this.router.navigate(['/jobs']); // redirect after register
+        this.router.navigate(['/login']); // redirect after register
       },
       error: (err) => {
         console.error('Register failed:', err);
